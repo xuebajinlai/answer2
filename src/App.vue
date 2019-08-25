@@ -45,30 +45,93 @@
         />
       </van-popup>
     </template>
+
+    <!-- Step2 -->
+    <template v-if="active == 2">
+      <template v-for="q in text">
+        <Question v-bind:key="q.id" v-bind:type="q.type" 
+                  v-bind:title="q.title" v-bind:options="q.options"
+                  v-bind:answer="q.answer" v-model="q['result']"/>
+      </template>
+    </template>
+
+    <!-- Step3 -->
+    <template v-if="active == 3">
+      <h3 class="infoTitle">答题结果</h3>
+      <p class="infoText">你的得分是：{{Math.round(realScore)}} 分！</p>
+      <p class="infoText" v-if="successScore > realScore">很遗憾没有通过测试（重新测试次数有限制）。</p>
+      <template v-else>
+        <p class="infoText" >恭喜你，入群口令是：</p>
+        <van-cell-group>
+          <van-field v-model="flag" center readonly>
+            <van-button slot="button" size="small" type="primary">复制</van-button>
+          </van-field>
+        </van-cell-group>
+      </template>
+    </template>
   </div>
 </template>
 
 <script>
+
+import Question from './components/Question'
+
 export default {
   name: 'app',
+  components: {
+     Question
+  },
   data() {
     return {
       active: 0,
-      butname: "确认",
+      //butname: "确认",
       basicUser: "",
       basicLevelExample: ['小初中', '高中', '本科、研究生及以上', ],
       basicLevelShow: false,
       basicLevel: 0,
+      text: [],
+      successScore: 0,
+      realScore: 0,
+      flag:  "",
     };
+  },
+  computed: {
+    butname: function () {
+      if (this.active < 0 || this.active >= 4) {
+        return ""
+      }
+      let dic = ["确认","下一步","提交",""]
+      return dic[this.active]
+    }
   },
   methods: {
     onReturnMain() {
+      this.text = null;
+      this.successScore = 100;
+      this.flag = "";
       this.active = 0;
     },
     onNextStep() {
       if(this.active >= 4 || this.active < 0){
         // 非预期情况
         return
+      }
+      if(this.active == 1 ){
+        // 载入试题
+        let tmp = require("./assets/text" + this.basicLevel + ".json");
+        this.text = tmp.text;
+        this.successScore = tmp.ok;
+        this.flag = tmp.flag;
+      }
+      if(this.active == 2) {
+        // 检查结果
+        let count = 0;
+        for(let q of this.text) {
+          if(q['result'] == true) {
+            count += 1;
+          }
+        }
+        this.realScore = count / this.text.length * 100;
       }
       this.active += 1;
     },
@@ -81,6 +144,8 @@ export default {
 </script>
 
 <style>
+
+
 
 .infoTitle {
   margin-left: 30px;

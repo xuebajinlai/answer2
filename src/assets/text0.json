@@ -1,0 +1,27 @@
+{
+    "text":[
+        {   
+            "id": 1,
+            "type": 0,
+            "title": "title1",
+            "options": [],
+            "answer":1
+        },
+        {   
+            "id": 2,
+            "type": 0,
+            "title": "title2",
+            "options": [],
+            "answer":"2"
+        },
+        {   
+            "id": 3,
+            "type": 1,
+            "title": "title3",
+            "options": ["a","b"],
+            "answer":"a"
+        }
+    ],
+    "ok": 80,
+    "flag": "ok"
+}
