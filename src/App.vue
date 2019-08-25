@@ -60,6 +60,7 @@
       <h3 class="infoTitle">答题结果</h3>
       <p class="infoText">你的得分是：{{Math.round(realScore)}} 分！</p>
       <p class="infoText" v-if="successScore > realScore">很遗憾没有通过测试（重新测试次数有限制）。</p>
+      <p class="infoText" v-else-if="getCount()">重复提交次数过多。</p>
       <template v-else>
         <p class="infoText" >恭喜你，入群口令是：</p>
         <van-cell-group>
@@ -133,16 +134,26 @@ export default {
           }
         }
         this.realScore = count / this.text.length * 100;
+        sessionStorage.setItem("count", parseInt(sessionStorage.getItem("count")) + 1);
       }
       this.active += 1;
     },
     onBasicLevelChange(value) {
+      // 获取级别
       this.basicLevel = this.basicLevelExample.indexOf(value);
       this.basicLevelShow = false;
+    },
+    getCount() {
+      // 是否超过尝试次数
+      return parseInt(sessionStorage.getItem("count")) >= 4;
     }
   },
   mounted() {
+    // 初始化部分
     const clipboard = new Clipboard('#clip');
+    if(sessionStorage.getItem("count") == null) {
+      sessionStorage.setItem("count","0");
+    }
   }
 }
 </script>
