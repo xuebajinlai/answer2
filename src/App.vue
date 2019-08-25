@@ -64,7 +64,7 @@
         <p class="infoText" >恭喜你，入群口令是：</p>
         <van-cell-group>
           <van-field v-model="flag" center readonly>
-            <van-button slot="button" size="small" type="primary">复制</van-button>
+            <van-button id="clip" :data-clipboard-text="flag" slot="button" size="small" type="primary">复制</van-button>
           </van-field>
         </van-cell-group>
       </template>
@@ -75,6 +75,7 @@
 <script>
 
 import Question from './components/Question'
+import Clipboard from 'clipboard';
 
 export default {
   name: 'app',
@@ -139,6 +140,9 @@ export default {
       this.basicLevel = this.basicLevelExample.indexOf(value);
       this.basicLevelShow = false;
     }
+  },
+  mounted() {
+    const clipboard = new Clipboard('#clip');
   }
 }
 </script>
