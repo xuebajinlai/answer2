@@ -52,6 +52,9 @@
         <Question v-bind:key="q.id" v-bind:type="q.type" 
                   v-bind:title="q.title" v-bind:options="q.options"
                   v-bind:answer="q.answer" v-model="q['result']"/>
+        <template v-if="debug == true">
+          {{q}}
+        </template>
       </template>
     </template>
 
@@ -87,6 +90,7 @@ export default {
     return {
       active: 0,
       //butname: "确认",
+      debug: false,
       basicUser: "",
       basicLevelExample: ['小初中', '高中', '本科、研究生及以上', ],
       basicLevelShow: false,
@@ -150,6 +154,7 @@ export default {
   },
   mounted() {
     // 初始化部分
+    // eslint-disable-next-line
     const clipboard = new Clipboard('#clip');
     if(sessionStorage.getItem("count") == null) {
       sessionStorage.setItem("count","0");

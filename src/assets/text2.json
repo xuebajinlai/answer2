@@ -2,26 +2,33 @@
     "text":[
         {   
             "id": 1,
-            "type": 0,
-            "title": "title1",
-            "options": [],
-            "answer":1
+            "type": 1,
+            "title": "数学分析：下面是三大微分中值定理中，最一般形式的是？",
+            "options": ["柯西中值定理","拉格朗日中值定理","罗尔中值定理"],
+            "answer":"柯西中值定理"
         },
         {   
             "id": 2,
-            "type": 0,
-            "title": "title2",
-            "options": [],
-            "answer":"2"
+            "type": 1,
+            "title": "算法：下面的排序算法中，不是基于两两交换的是：",
+            "options": ["快速排序","桶排序","选择排序","堆排序"],
+            "answer":"桶排序"
         },
         {   
             "id": 3,
+            "type": 0,
+            "title": "近代史纲要：抗日战争时，在根据地建立的抗日民主政权在人员组成制度是？",
+            "options": [],
+            "answer":"三三制"
+        },
+        {   
+            "id": 4,
             "type": 1,
-            "title": "title3",
-            "options": ["a","b"],
-            "answer":"a"
+            "title": "物理：光子和电子分别是？",
+            "options": ["玻色子、玻色子","玻色子、费米子","费米子、玻色子","费米子、费米子"],
+            "answer":"玻色子、费米子"
         }
     ],
-    "ok": 80,
-    "flag": "ok"
+    "ok": 70,
+    "flag": "welc0me_t0_the_9r0up"
 }
